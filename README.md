@@ -33,4 +33,5 @@ List the key features of your project:
 - This project is licensed under the MIT License.
 
 ## LINKS
-- 
+- GitHub - https://github.com/jtdoaks/E-commerce-App 
+- Screen Recording - https://drive.google.com/file/d/1p4yo52_WpGaivXUIEkbvCGhbQQUyHgkL/view 
