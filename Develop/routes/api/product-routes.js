@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Tag.findAll(req.body);
+    const productData = await Product.findAll(req.params, {
+      include: [{ model: Category }, { model: Tag, through: ProductTag, as: 'all_products_found' }]
+    });
     res.status(200).json(productData);
   } catch (err) {
     res.status(400).json(err);
@@ -20,7 +22,9 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const oneProductData = await Tag.findByPk(req.body);
+    const oneProductData = await Tag.findByPk(req.params, {
+      include: [{ model: Category }, { model: Tag, through: ProductTag, as: 'product_found' }]
+    });
     res.status(200).json(oneProductData);
   } catch (err) {
     res.status(400).json(err);
@@ -37,12 +41,12 @@ router.post('/', async (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-    try {
-      const newProduct = await Tag.create(req.body);
-      res.status(200).json(newProduct)
-    } catch (err) {
-      res.status(400).json(err);
-    }
+  try {
+    const newProduct = await Tag.create(req.body);
+    res.status(200).json(newProduct)
+  } catch (err) {
+    res.status(400).json(err);
+  }
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
